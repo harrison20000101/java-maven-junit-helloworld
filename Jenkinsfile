@@ -8,8 +8,25 @@ pipeline {
     }
 
     stage('Test') {
+      parallel {
+        stage('Test') {
+          steps {
+            echo 'Testing'
+          }
+        }
+
+        stage('onother testing') {
+          steps {
+            echo 'other testing'
+          }
+        }
+
+      }
+    }
+
+    stage('Deploy') {
       steps {
-        sh 'testing'
+        echo 'Deploying'
       }
     }
 
