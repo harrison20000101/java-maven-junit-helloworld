@@ -1,19 +1,26 @@
 pipeline {
-    agent any
-    
-    tools {
-        maven 'mvn-3.6.3'
+  agent any
+  stages {
+    stage('Build') {
+      steps {
+        sh 'mvn test'
+      }
     }
-    stages {
-        stage('Build') {
-            steps {
-                sh "mvn test" 
-            }
-        }
+
+    stage('Test') {
+      steps {
+        sh 'testing'
+      }
     }
-    post {
-        always {
-            junit testResults:"**/target/surefire-reports/*.xml"
-        }
+
+  }
+  tools {
+    maven 'mvn-3.6.3'
+  }
+  post {
+    always {
+      junit '**/target/surefire-reports/*.xml'
     }
+
+  }
 }
