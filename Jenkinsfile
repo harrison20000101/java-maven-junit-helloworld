@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn test'
         echo 'Unit Testing'
+        sh 'mvn test'
       }
     }
 
@@ -12,6 +12,7 @@ pipeline {
       steps {
         echo 'Integration Testing'
         sh 'mvn verify'
+        step( [ $class: 'JacocoPublisher' ] )
       }
     }
 
