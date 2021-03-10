@@ -12,13 +12,15 @@ pipeline {
       steps {
         echo 'Integration Testing'
         sh 'mvn verify'
-        step( [ $class: 'JacocoPublisher' ] )
+        step([ $class: 'JacocoPublisher' ])
       }
     }
 
     stage('Deploy') {
       steps {
         echo 'Deploying'
+        echo 'UAT'
+        sh 'mvn clean install'
       }
     }
 
