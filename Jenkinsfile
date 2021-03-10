@@ -4,24 +4,14 @@ pipeline {
     stage('Build') {
       steps {
         sh 'mvn test'
+        echo 'Unit Testing'
       }
     }
 
     stage('Test') {
-      parallel {
-        stage('Test') {
-          steps {
-            echo 'Testing'
-            sh 'mvn verify'
-          }
-        }
-
-        stage('onother testing') {
-          steps {
-            echo 'other testing'
-          }
-        }
-
+      steps {
+        echo 'Integration Testing'
+        sh 'mvn verify'
       }
     }
 
