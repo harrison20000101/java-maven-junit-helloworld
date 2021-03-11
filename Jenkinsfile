@@ -26,7 +26,7 @@ pipeline {
 
   }
   tools {
-    maven 'mvn-3.6.3'
+    maven 'mvn-3.5.4'
   }
   post {
     always {
