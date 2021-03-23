@@ -10,6 +10,7 @@ pipeline {
 
     stage('Test') {
       steps {
+        hygieiaBuildPublishStep buildStatus: 'Success'
         echo 'Integration Testing'
         sh 'mvn verify'
         step([ $class: 'JacocoPublisher' ])
