@@ -5,32 +5,36 @@ pipeline {
       steps {
         echo 'Unit Test'
         sh 'mvn test'
-        junit '**/target/surefire-reports/*.xml'
-        hygieiaCodeQualityPublishStep checkstyleFilePattern: '', findbugsFilePattern: '', jacocoFilePattern: '', junitFilePattern: 'target/surefire-reports/*.xml', pmdFilePattern: ''
       }
     }
 
     stage('Test') {
       steps {
+        echo 'Build Success, push to QA'
+        hygieiaBuildPublishStep buildStatus: 'Success'
+
         echo 'Integration Testing'
         sh 'mvn verify'
         step([ $class: 'JacocoPublisher' ])
+        hygieiaCodeQualityPublishStep checkstyleFilePattern: '', findbugsFilePattern: '', jacocoFilePattern: '', junitFilePattern: 'target/surefire-reports/*.xml', pmdFilePattern: ''
       }
     }
 
     stage('Deploy') {
       steps {
-        hygieiaBuildPublishStep buildStatus: 'Success'
         echo 'Deploy to Stage'
-        sh 'mvn clean install'
 
         echo 'User Acceptance Test'
-        sh 'mvn test'
-        junit '**/target/surefire-reports/*.xml'
-        hygieiaCodeQualityPublishStep checkstyleFilePattern: '', findbugsFilePattern: '', jacocoFilePattern: '', junitFilePattern: 'target/surefire-reports/*.xml', pmdFilePattern: ''
-      }
+        sh 'mvn clean install'
+        }
     }
 
+  }
+  post {
+    always {
+      junit '**/target/surefire-reports/*.xml'
+      archiveArtifact artifacts: 'target/**/*.jar', fingerprint: true
+    }
   }
   tools {
     maven 'mvn-3.5.4'
