@@ -16,6 +16,7 @@ pipeline {
         echo 'Integration Testing'
         sh 'mvn verify'
         step([ $class: 'JacocoPublisher' ])
+        hygieiaCodeQualityPublishStep checkstyleFilePattern: '', findbugsFilePattern: '', jacocoFilePattern: 'target/site/jacoco-both/*.xml', junitFilePattern: 'target/surefire-reports/*.xml', pmdFilePattern: ''
       }
     }
 
@@ -32,7 +33,6 @@ pipeline {
   post {
     always {
       junit '**/target/surefire-reports/*.xml'
-      hygieiaCodeQualityPublishStep checkstyleFilePattern: '', findbugsFilePattern: '', jacocoFilePattern: 'target/site/jacoco-both/*.xml', junitFilePattern: 'target/surefire-reports/*.xml', pmdFilePattern: ''
       archiveArtifact artifacts: 'target/**/*.jar', fingerprint: true
     }
   }
