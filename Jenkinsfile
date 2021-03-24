@@ -16,7 +16,7 @@ pipeline {
         echo 'Integration Testing'
         sh 'mvn verify'
         step([ $class: 'JacocoPublisher' ])
-        hygieiaCodeQualityPublishStep checkstyleFilePattern: '', findbugsFilePattern: '', jacocoFilePattern: 'target/site/jacoco-both/*.xml', junitFilePattern: 'target/surefire-reports/*.xml', pmdFilePattern: ''
+        hygieiaCodeQualityPublishStep checkstyleFilePattern: '', findbugsFilePattern: '', jacocoFilePattern: '', junitFilePattern: 'target/surefire-reports/*.xml', pmdFilePattern: ''
       }
     }
 
