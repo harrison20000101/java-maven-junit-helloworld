@@ -33,6 +33,7 @@ pipeline {
   post {
     always {
       junit '**/target/surefire-reports/*.xml'
+      hygieiaCodeQualityPublishStep checkstyleFilePattern: '**/*/checkstyle-result.xml', findbugsFilePattern: '**/*/Findbugs.xml', jacocoFilePattern: '**/*/jacoco.xml', junitFilePattern: '**/*/TEST-.*-test.xml', pmdFilePattern: '**/*/PMD.xml'
     }
   }
   tools {
