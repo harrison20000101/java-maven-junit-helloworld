@@ -3,9 +3,6 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        echo 'PMD Check'
-        sh 'mvn pmd:pmd'
-        
         echo 'Unit Test'
         sh 'mvn test'
       }
@@ -36,7 +33,6 @@ pipeline {
   post {
     always {
       junit '**/target/surefire-reports/*.xml'
-      pmd(canRunOnFailed: true, pattern: '**/target/pmd.xml')
     }
   }
   tools {
