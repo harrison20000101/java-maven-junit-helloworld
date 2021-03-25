@@ -3,6 +3,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+        echo 'PMD Check'
+        sh 'mvn pmd:pmd'
+        
         echo 'Unit Test'
         sh 'mvn test'
       }
@@ -25,7 +28,7 @@ pipeline {
 
         echo 'User Acceptance Test'
         sh 'mvn clean install'
-        hygieiaDeployPublishStep applicationName: 'CI Demo App', artifactDirectory: '\\CI Demo\\target', artifactGroup: 'com.example.javamavenjunithelloworld', artifactName: '*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'Dev'
+        hygieiaDeployPublishStep applicationName: 'CI Demo App', artifactDirectory: '**/target', artifactGroup: 'com.example.javamavenjunithelloworld', artifactName: '*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'Dev'
         }
     }
 
@@ -33,6 +36,7 @@ pipeline {
   post {
     always {
       junit '**/target/surefire-reports/*.xml'
+      pmd(canRunOnFailed: true, pattern: '**/target/pmd.xml')
     }
   }
   tools {
