@@ -25,6 +25,7 @@ pipeline {
 
         echo 'User Acceptance Test'
         sh 'mvn clean install'
+        hygieiaDeployPublishStep applicationName: 'CI Demo App', artifactDirectory: '\\CI Demo\\target', artifactGroup: 'com.example.javamavenjunithelloworld', artifactName: '*.jar', artifactVersion: '', buildStatus: 'Success', environmentName: 'Dev'
         }
     }
 
