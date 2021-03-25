@@ -74,6 +74,13 @@
       </plugin>
 
       <plugin>
+        <!-- Configures the PMD. -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.8.0</version>
+      </plugin>
+       
+      <plugin>
         <!-- Unit tests are run by surefire. -->
         <!-- Classes under src/test/java called *Test are included automatically. -->
         <!-- Unit tests are run during the test phase. -->
