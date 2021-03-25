@@ -3,15 +3,8 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        withSonarQubeEnv(credentialsId: 'mySonarQubeToken') {
-          // Optionally use a Maven environment you've configured already
-          withMaven(maven:'Maven 3.5.4') {
-            sh 'mvn clean package sonar:sonar'
-          }
-        }
-                
         echo 'Unit Test'
-        sh 'mvn test'
+        sh 'mvn test sonar:sonar -Dsonar.projectKey=test -Dsonar.host.url=http://69.230.231.193:9000 -Dsonar.login=6117ef30bce15f0daf675712fa04e49f64b672df'
       }
     }
 
