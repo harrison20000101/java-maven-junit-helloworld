@@ -3,6 +3,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+        echo 'Code Check'
+        sh 'mvn sonar:sonar -Dsonar.projectKey=test -Dsonar.host.url=http://69.230.231.193:9000 -Dsonar.login=6117ef30bce15f0daf675712fa04e49f64b672df'
+        
         echo 'Unit Test'
         sh 'mvn test'
       }
