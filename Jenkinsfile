@@ -4,10 +4,12 @@ pipeline {
     stage('Build') {
       steps {
         withSonarQubeEnv(credentialsId: 'mySonarQubeToken') {
-          echo 'Code Check'
-          sh 'mvn sonar:sonar'
+          // Optionally use a Maven environment you've configured already
+          withMaven(maven:'Maven 3.5') {
+            sh 'mvn clean package sonar:sonar'
+          }
         }
-        
+                
         echo 'Unit Test'
         sh 'mvn test'
       }
