@@ -38,7 +38,7 @@ public class HelloTest {
         PrintStream stream = new PrintStream(os, true);
 
         Hello hi = new Hello();
-        hi.setTimes(3);
+        hi.setTimes(2);
         hi.sayHello(stream);
 
         // Does it say "Hello!" three times?
